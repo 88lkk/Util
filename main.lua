@@ -250,7 +250,7 @@ end
 Dump.Ratio = function(Inst, Amount)
 	local Aspect = Dump["_"]("UIAspectRatioConstraint", {
         Parent = Inst,
-        AspectRatio = Amont
+        AspectRatio = Amount
     })
 	return Aspect
 end
