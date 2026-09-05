@@ -144,6 +144,15 @@ Dump["_"] = function(ClassName, Properties)
 	return Inst
 end
 
+Dump.NewScreen = function()
+	local Screen = Dump["_"]("ScreenGui", {
+		Parent = Dump.Core,
+		ResetOnSpawn = false,
+		DisplayOrder = 2_147_483_647
+	})
+	return Screen
+end
+
 Dump.Pad = function(Inst)
 	local Padding = Dump["_"]("UIPadding", {
         Parent = Inst
