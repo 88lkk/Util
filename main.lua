@@ -135,9 +135,9 @@ local DefaultProperties = {}
 Dump["_"] = function(ClassName, Properties)
 	local Inst = Instance.new(ClassName)
 	
-	local Properties = DefaultProperties[ClassName]
-	if Properties then
-		for Property, Value in Properties do
+	local Custom = DefaultProperties[ClassName]
+	if Custom then
+		for Property, Value in Custom do
 			local Success, Error = pcall(function()
 				Inst[Property] = Value
 			end)
