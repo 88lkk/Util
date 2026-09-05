@@ -130,9 +130,23 @@ Dump.Unmark = function(Name)
 	Dump.Marks[Name] = nil
 end
 
--- Ui Functions
+-- Instance Functions
+local DefaultProperties = {}
 Dump["_"] = function(ClassName, Properties)
 	local Inst = Instance.new(ClassName)
+	
+	local Properties = DefaultProperties[ClassName]
+	if Properties then
+		for Property, Value in Properties do
+			local Success, Error = pcall(function()
+				Inst[Property] = Value
+			end)
+			if not Success then
+				warn(Error)
+			end
+		end
+	end
+	
 	for Property, Value in Properties do
 		local Success, Error = pcall(function()
 			Inst[Property] = Value
@@ -144,6 +158,15 @@ Dump["_"] = function(ClassName, Properties)
 	return Inst
 end
 
+Dump.SetDefaultProperty = function(ClassName, Property, Value)
+	if not DefaultProperties[ClassName] then
+		DefaultProperties[ClassName] = {}
+	end
+
+	DefaultProperties[ClassName][Property] = Value
+end
+
+-- Ui Functions
 Dump.NewScreen = function()
 	local Screen = Dump["_"]("ScreenGui", {
 		Parent = Dump.Core,
