@@ -281,6 +281,18 @@ Dump.Round = function(Inst, Scale, Offset)
 	return Corner
 end
 
+Dump.Style = function(Properties)
+	local StyleTree = {}
+
+	function StyleTree:Apply(Inst)
+		for Property, Value in Properties do
+			Inst[Property] = Value
+		end
+	end
+	
+	return StyleTree
+end
+
 -- Dump
 for Name, Value in Dump do
     Env[Name] = Value
