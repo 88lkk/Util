@@ -217,7 +217,6 @@ end
 Dump.Stroke = function(Inst)
 	local UIStroke = Dump["_"]("UIStroke", {
         Parent = Inst,
-        StrokeSizingMode = Enum.StrokeSizingMode.ScaledSize,
         LineJoinMode = Enum.LineJoinMode.Miter
     })
 	
