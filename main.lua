@@ -243,6 +243,16 @@ Dump.Stroke = function(Inst)
 		return Tree
 	end
 
+	function Tree:Border()
+		UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+		return Tree
+	end
+
+	function Tree:Contextual()
+		UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Contextual
+		return Tree
+	end
+
 	return Tree
 end
 
