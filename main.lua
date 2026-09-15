@@ -303,6 +303,83 @@ Dump.Style = function(Properties)
 	return StyleTree
 end
 
+-- Shit Exectutor Fixes
+Dump.FindFirstDescendantOfClass = function(Inst, ClassName)
+	for _, Desc in Inst:GetDescendants() do
+		if Desc:IsA(ClassName) then
+			return Desc
+		end
+	end
+end
+
+local Saves = {}
+local function Save(Name, Inst, Properties)
+	local PropDump = {}
+
+	for _, Property in Properties do
+		PropDump[Property] = Inst[Property]
+	end
+	
+	Saves[Name] = {
+		Inst = Inst,
+		PropDump = PropDump
+	}
+end
+
+local function Load(Name)
+	local Found = Saves[Name]
+	if not Found then return end
+
+	local Inst, PropDump = Found.Inst, Found.PropDump
+	for Property, Value in PropDump do
+		Inst[Property] = Value
+	end
+end
+
+getgenv().fireclickdetector = function(Root)
+	if not Root then return end
+
+	local Part
+	local Click
+
+	if Root:IsA("ClickDetector") then
+		Part = Root.Parent
+		Click = Root
+	else
+		Click = Dump.FindFirstDescendantOfClass(Root, "ClickDetector")
+	end
+
+	if not Part then return end
+	if not Click then return end
+
+	if Part:IsA("Model") then
+		Part = Dump.FindFirstDescendantOfClass(Part, "BasePart")
+	end
+
+	if not Part then return end
+	if not Click then return end
+
+	Save("Part", Part, {"CFrame", "Transparency", "CanTouch", "CanCollide"})
+	Save("Click", Click, {"MaxActivationDistance"})
+
+	Part.CFrame = Camera.CFrame * CFrame.new(0, 0, -Part.Size.Z - 1)
+	Part.Transparency = 1
+	Part.CanTouch = false
+	Part.CanCollide = false
+	Click.MaxActivationDistance = math.huge
+
+	local ScreenPos, OnScreen = Camera:WorldToViewportPoint(Part.Position)
+	if OnScreen then
+		VirtualInputManager:SendMouseButtonEvent(ScreenPos.X, ScreenPos.Y, 0, true, game, 0)
+		VirtualInputManager:SendMouseButtonEvent(ScreenPos.X, ScreenPos.Y, 0, false, game, 0)
+	end
+
+	task.wait()
+
+	Load("Part")
+	Load("Click")
+end
+
 -- Dump
 for Name, Value in Dump do
     Env[Name] = Value
