@@ -368,6 +368,8 @@ getgenv().fireclickdetector = function(Root)
 	Part.CanCollide = false
 	Click.MaxActivationDistance = math.huge
 
+	task.wait()
+
 	local ScreenPos, OnScreen = Camera:WorldToViewportPoint(Part.Position)
 	if OnScreen then
 		VirtualInputManager:SendMouseButtonEvent(ScreenPos.X, ScreenPos.Y, 0, true, game, 0)
