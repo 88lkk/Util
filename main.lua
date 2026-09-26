@@ -109,6 +109,15 @@ tableclone.delete = function(Root, Delete)
 	end
 end
 
+tableclone.reverse = function(Root)
+	for _ = 1, math.floor(#t / 2) do
+		local New = #Root - _ + 1
+		Root[_] = Root[New]
+		Root[New] = Root[_]
+	end
+	return Root
+end
+
 Dump.table = tableclone
 
 -- Maid Functions
