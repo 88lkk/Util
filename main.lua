@@ -353,7 +353,7 @@ local function Load(Name)
 	end
 end
 
-getgenv().fireclickdetector = function(Root)
+Dump.fireclickdetector = function(Root)
 	if not Root then return end
 
 	local Part
