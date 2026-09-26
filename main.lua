@@ -5,6 +5,9 @@
 local Env = getfenv()
 local cloneref = cloneref or function(Inst) return Inst end
 
+if Env["88llkUtil"] then return end
+Env["88llkUtil"] = 1
+
 ------------------------------
 -- Services
 ------------------------------
