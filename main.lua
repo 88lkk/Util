@@ -415,3 +415,12 @@ end
 for Name, Value in Dump do
     Env[Name] = Value
 end
+
+-- Import
+local Util = {}
+
+function Util:Import(ModuleName)
+	loadstring(game:HttpGet(`https://raw.githubusercontent.com/88lkk/Util/refs/heads/main/Modules/{ModuleName}.lua`))()
+end
+
+return Util
