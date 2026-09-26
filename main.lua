@@ -94,6 +94,23 @@ Dump.GetPlayer = function(Query)
 	end
 end
 
+-- Custom Table Funcs
+local tableclone = {}
+
+for Name, Func in table do
+	tableclone[Name] = Func
+end
+
+tableclone.delete = function(Root, Delete)
+	for Key, Value in Root do
+		if Value == Delete then
+			Root[Key] = nil
+		end
+	end
+end
+
+Dump.table = tableclone
+
 -- Maid Functions
 Dump.Connections = {}
 Dump.Maid = function(Connection)
