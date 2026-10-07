@@ -49,6 +49,7 @@ local Dump = {}
 -- Variables
 Dump.LocalPlayer = Players.LocalPlayer
 Dump.Camera = workspace.CurrentCamera
+Dump.Mouse = Dump.LocalPlayer:GetMouse()
 Dump.Core = (gethui and gethui())
     or CoreGui
     or LocalPlayer:FindFirstChildOfClass("PlayerGui")
