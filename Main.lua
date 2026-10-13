@@ -412,6 +412,24 @@ Dump.fireclickdetector = function(Root)
 	Load("Click")
 end
 
+local function GetPath(instance)
+    local path = {}
+    local current = instance
+    
+    while current and current ~= game do
+        table.insert(path, 1, '["' .. current.Name .. '"]')
+        current = current.Parent
+    end
+    
+    return "game" .. table.concat(path)
+end
+
+Dump.lowendrequire = function(Script)
+	local Source = decompile(Script)
+	local Localization = `local script = {GetPath(Script)}`
+	return loadstring(Localization .. Source)()
+end
+
 -- Dump
 for Name, Value in Dump do
     Env[Name] = Value
